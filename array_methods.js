@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Array Methods</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-   <div class="user_data"></div>
-</body>
-<script>
-    const users = [
+const users = [
   {
     "user_id": "583c3ac3f38e84297c002546",
     "email": "test@test.com",
@@ -79,23 +66,70 @@
   }
 ]
 
+// ForEach..........................
 
-const userData = document.querySelector('.user_data');
+const mail = users.forEach( (mail) =>{
+  console.log(mail.email);
 
+  });
 
-users.forEach( (id)=> {
-const div = document.createElement('div');
-const name = id.name;
-const mail = id.email;
-
- div.textContent=`${name}, ${mail}`;
- userData.appendChild(div);
-
-});
+//Filter..................................
 
 
+  const fName = users.filter( (id) =>  id.family_name==='Dough');
 
-</script>
-</body>
-</html>
+  console.log(fName);
 
+//Map.............................................
+
+    const uName = users.map( (id) =>  id.name);
+
+  console.log(uName);
+
+//Find...................................................
+ 
+   const uMail = users.find( (mail) =>  mail.email==='test9999@test.com');
+
+  console.log(uMail);
+
+// Reduce..........................................................
+
+ const userLogin = users.reduce(( acc, curr) => {
+  return acc + (curr.logins_count || 0);
+ }, 0);
+
+  console.log(userLogin);
+//Slice......................................................................
+
+const userSlic = users.slice(1, 3);
+console.log(userSlic);
+console.log(users);
+
+//Splice..............................................................................
+
+const userSplic = users.splice(1);
+console.log(userSplic);
+console.log(users);
+
+//Join..........................................................................................
+
+const elements = ["Fire", "Air", "Water"];
+
+ console.log(elements.join());
+
+console.log(elements.join(""));
+console.log(elements.join("-"));
+
+//Every....................................................................................................
+
+const array = [1, 30, 39, 29, 10, 13];
+const isEvery = array.every( (index)=> index <40);
+
+console.log(isEvery);
+
+//Some..................................................................................................................
+
+const array1 = [1, 30, 39, 29, 10, 13];
+const isSome = array.some( (index)=> index > 30);
+
+console.log(isSome);
