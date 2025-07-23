@@ -8,7 +8,20 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-   <div class="user_data"></div>
+      <input id="Input" type="text" placeholder="Write here...">
+    <button type="submit" id="Btn">Add</button>
+
+
+  <table>
+    <thead id="user_data">
+      <tr>
+        <th id="Name_value">Name</th>
+        <th id=" Mail_value">Email</th>
+        <th id="F_name">Family_Name</th>
+        <th id="Create_value">Created_At</th> 
+      </tr>
+</thead>
+   </table>
 </body>
 <script>
     const users = [
@@ -80,22 +93,68 @@
 ]
 
 
-const userData = document.querySelector('.user_data');
+const userData = document.querySelector('#user_data');
 
 
-users.forEach( (id)=> {
-const div = document.createElement('div');
-const name = id.name;
-const mail = id.email;
+users.forEach( (user)=> {
+const row = document.createElement('tr');
+const userName = document.createElement('td');
+userName.textContent = user.name;
+const btn = document.createElement('buttton');
+row.appendChild(userName);
 
- div.textContent=`${name}, ${mail}`;
- userData.appendChild(div);
+
+const userEmail = document.createElement('td');
+userEmail.textContent = user.email;
+row.appendChild(userEmail);
+
+const fName = document.createElement('td');
+fName.textContent = user.family_name;
+row.appendChild(fName);
+
+const createValue = document.createElement('td');
+createValue.textContent = user.created_at;
+row.appendChild(createValue);
+
+const editBtn = document.createElement('edit');
+editBtn.textContent = 'Edit'; 
+const editIcon = document.createElement('i');
+editIcon.classList.add('fas' , 'fa-edit');
+row.appendChild(editIcon);
+
+const deleteBtn = document.createElement('button');
+deleteBtn.textContent = 'Delete'; 
+const deleteIcon = document.createElement('i');
+deleteIcon.classList.add('fa-solid' , 'fa-trash');
+row.appendChild(deleteIcon);
+
+userData.appendChild(row);
+
+
+editIcon.addEventListener('click', function() {
+
+
+  userEmail.textContent = prompt('Enter name');
+  
 
 });
 
 
+deleteIcon.addEventListener('click', function () {
+ 
+ userName.remove();
+ userEmail.remove();
+ fName.remove();
+ createValue.remove();
+ //deleteIcon.remove();
+ //editIcon.remove();
+ 
+});
+
+}); 
+
+
 
 </script>
-</body>
 </html>
 

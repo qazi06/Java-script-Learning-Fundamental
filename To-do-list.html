@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<style>
+    *{
+       
+        list-style: none;
+    }
+</style>
+<body>
+    <h2>To-Do List App</h2>
+    <input id="Input" type="text" placeholder="Write here...">
+    <button type="submit" id="Btn">Add</button>
+
+    
+       <table>
+    <thead id="List_data">
+      <tr>
+        <th id="Name_value">Name</th>
+        <th id=" Mail_value">Edit</th>
+        <th id="F_name">Delete</th>
+      </tr>
+</thead>
+   </table>
+</body>
+<script>
+
+const todoList = [];
+
+const input = document.getElementById('Input');
+const btn = document.getElementById('Btn');
+const listData = document.getElementById('List_data');
+
+btn.addEventListener('click', function() {
+    
+ const row = document.createElement('tr')
+ const textData = input.value;
+ const tableData = document.createElement('td');
+ tableData.textContent = textData;
+ row.appendChild(tableData);
+ input.value = '';
+ listData.appendChild(row);
+ console.log("textinput");
+});
+
+function delBtn() {
+    const deleteBtn = document.createElement('td');
+    deleteBtn.textContent = 'Delete';
+    const deleteIcon = document.createElement('i');
+    deleteIcon.classList.add('fa-solid' , 'fa-trash')
+    listData.appendChild(deleteIcon);
+
+};
+function edtBtn() {
+    const editBtn = document.createElement('td');
+    editBtn.textContent = 'Edit'; 
+    const editIcon = document.createElement('i');
+    editIcon.classList.add('fas' , 'fa-edit');
+}
+</script>
+</html>
