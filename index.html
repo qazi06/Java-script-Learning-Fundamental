@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-      <input id="Input" type="text" placeholder="Write here...">
-    <button type="submit" id="Btn">Add</button>
-
-
   <table>
     <thead id="user_data">
       <tr>
-        <th id="Name_value">Name</th>
+        <th >Name</th>
         <th id=" Mail_value">Email</th>
         <th id="F_name">Family_Name</th>
         <th id="Create_value">Created_At</th> 
       </tr>
 </thead>
+<tbody id="Name_value">
+
+
+</tbody>
    </table>
 </body>
 <script>
@@ -91,17 +91,17 @@
     "email_verified": false
   }
 ]
+console.log('====================================');
+console.log(users);
+console.log('====================================');
 
 
-const userData = document.querySelector('#user_data');
+//const userData = document.querySelector('#user_data');
+//const row = document.createElement('tr');
 
-
+/*
 users.forEach( (user)=> {
-const row = document.createElement('tr');
-const userName = document.createElement('td');
-userName.textContent = user.name;
-const btn = document.createElement('buttton');
-row.appendChild(userName);
+
 
 
 const userEmail = document.createElement('td');
@@ -115,26 +115,25 @@ row.appendChild(fName);
 const createValue = document.createElement('td');
 createValue.textContent = user.created_at;
 row.appendChild(createValue);
+   i = document.createElement('i'); // To Do: create td first then put icons 
+i.classList.add('fas' , 'fa-edit');
 
-const editBtn = document.createElement('edit');
-editBtn.textContent = 'Edit'; 
-const editIcon = document.createElement('i');
-editIcon.classList.add('fas' , 'fa-edit');
-row.appendChild(editIcon);
+const editIcons = document.createElement('td');
+editIcons.appendChild(i);
 
-const deleteBtn = document.createElement('button');
-deleteBtn.textContent = 'Delete'; 
+row.appendChild(editIcons);
+
+
 const deleteIcon = document.createElement('i');
 deleteIcon.classList.add('fa-solid' , 'fa-trash');
 row.appendChild(deleteIcon);
 
-userData.appendChild(row);
+//userData.appendChild(row);
+
+editIcons.addEventListener('click', function() {
 
 
-editIcon.addEventListener('click', function() {
-
-
-  userEmail.textContent = prompt('Enter name');
+  userName.textContent = prompt('Enter name');
   
 
 });
@@ -146,14 +145,59 @@ deleteIcon.addEventListener('click', function () {
  userEmail.remove();
  fName.remove();
  createValue.remove();
- //deleteIcon.remove();
- //editIcon.remove();
+ deleteIcon.remove();
+ editIcons.remove();
  
 });
 
-}); 
+}); */
+
+const nameValue = document.getElementById('Name_value');
+
+users.map( (user)=> {
+  const row = document.createElement('tr');
+  const userName = document.createElement('td');
+  userName.textContent = user.name;
+  row.appendChild(userName);
+  
+  const editIcon = document.createElement('td');
+  i = document.createElement('i'); // To Do: create td first then put icons   
+  i.classList.add('fas' , 'fa-edit');
+  editIcon.appendChild(i);
+  row.appendChild(editIcon);
+  
+  editIcon.addEventListener('click', function() {
+    userName.textContent = prompt('Enter name');
+    
+  });
+  
+  const deleteBtn = document.createElement('td');
+  deleteIcon = document.createElement('i');
+  deleteIcon.classList.add('fa-solid' , 'fa-trash');
+  deleteBtn.appendChild(deleteIcon);
+  row.appendChild(deleteBtn);
+  nameValue.appendChild(row);
+  
+  deleteBtn.addEventListener('click', function() {
+    
+    userName.textContent = "";
+    editIcon.textContent = "";
+    deleteBtn.textContent = "";
+  
+});
+});
+
+users.forEach( (user) => {
+  const row = document.createElement('tr');
+  const userEmail = document.createElement('td');
+  userEmail.textContent = user.email;
+  row.appendChild(userEmail);
+  nameValue.appendChild(row);
+
+});
 
 
+console.log(nameValue); 
 
 </script>
 </html>
