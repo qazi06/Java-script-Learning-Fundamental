@@ -6,9 +6,30 @@
     <title>Document</title>
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+<style>
+  input {
+    padding: 10px;
+   
+  }
+
+  table, tr, th {
+   padding: 10px;
+  }
+  button {
+    padding: 10px;
+  }
+  tbody, td {
+    padding: 10px;
+  }
+
+  
+
+</style>
 <body>
     <h2>To-Do List App</h2>
+   
     <input id="Input" type="text" placeholder="Write here...">
+  
     <button type="submit" id="Btn">Add</button>
 
     
@@ -20,60 +41,92 @@
         <th>Delete</th>
       </tr>
 </thead>
-<tbody id="List_data">
+<tbody id="Table_data">
 
 </tbody>
    </table>
 </body>
 <script>
 
-    
-    const input = document.getElementById('Input');
-    const btn = document.getElementById('Btn');
-    const listData = document.getElementById('List_data');
-    
-    const todoList = [];
+const input = document.getElementById('Input');
+const addBtn = document.getElementById('Btn');
+const tableData = document.getElementById('Table_data');
+
+let users = [];
+let userId = null;
+
+function generateId() {
+  return Date.now();
   
-    btn.addEventListener('click', function() {
-    const textData = input.value;
+}
 
-    if(textData === "") return;
-    
-    const row = document.createElement('tr');
-    const tableData = document.createElement('td');
-    tableData.textContent = textData;
-    row.appendChild(tableData);
-    input.value = '';
-    
-    const editBtn = document.createElement('td');
-    editBtn.textContent = 'Edit'; 
-    const editIcon = document.createElement('i');
-    editIcon.classList.add('fas' , 'fa-edit');
-    row.appendChild(editIcon);
-    
-    const deleteBtn = document.createElement('td');
-    deleteBtn.textContent = "Delete";
-    const deleteIcon = document.createElement('i');
-    deleteIcon.classList.add('fa-solid' , 'fa-trash');
-    row.appendChild(deleteIcon);
-    
-    listData.appendChild(row);
-    
-    editIcon.addEventListener('click', function() {
+addBtn.addEventListener('click', () => updateData());
+
+function updateData () {
+        const name = input.value.trim();
+        if(!name) return;
+        if (userId === null) {
+          users.push({ id: generateId(), name });
+        } else {
+          const user = users.find((user) => user.id === userId);
+          if (user) user.name = name;
+        }
+
+        input.value = "";
+        showUsers();
+      }
+
+      function showUsers() {
+          tableData.innerHTML = "";
+
+          users.forEach((user) => {
+
+          const row = document.createElement("tr");
+
+          const span = document.createElement('td');
+          span.textContent = user.name;
           
-    tableData.textContent = prompt('Enter you\'r data...');
+          const editIcon = document.createElement('i');
+          editIcon.classList.add("fas", "fa-edit");
 
-    
-});
+          const deleteIcon = document.createElement('i');
+          deleteIcon.classList.add("fa-solid", "fa-trash");
+          const checkbox = document.createElement('input');
+          checkbox.type = "checkbox";
+          
+          checkbox.addEventListener('click', function(){
+          checkbox.toggle= "completed";
 
-    deleteIcon.addEventListener('click', function(){
-    tableData.remove();
-    editIcon.remove();
-    deleteIcon.remove();
 
-});
- 
-});
+          });
 
-</script>
+          row.appendChild(checkbox);
+          row.appendChild(span);
+          row.appendChild(editIcon);
+          row.appendChild(deleteIcon);
+
+          tableData.appendChild(row);
+          
+           
+
+          editIcon.addEventListener('click', () => editUser(user.id));
+          deleteIcon.addEventListener('click', () => deleteUser(user.id));
+          
+        });
+        
+      }
+
+
+      function editUser(id) {
+        userId = id;
+        const user = users.find((user) => user.id === id);
+        if (user) {
+          input.value = user.name; 
+        }
+      }
+      function deleteUser(userId) {
+        users = users.filter((user) => user.id !== userId);
+        showUsers();
+      }
+    </script>
 </html>
