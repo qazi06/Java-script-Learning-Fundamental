@@ -1,204 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Array Methods</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <table>
-    <thead id="user_data">
-      <tr>
-        <th >Name</th>
-        <th id=" Mail_value">Email</th>
-        <th id="F_name">Family_Name</th>
-        <th id="Create_value">Created_At</th> 
-      </tr>
-</thead>
-<tbody id="Name_value">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <input id="Name_Input" type="text" placeholder="Enter your name" />
+    <input id="Email_Input" type="text" placeholder="Enter your email" />
+    <input id="Family_Input" type="text" placeholder="Enter your family" />
+    <input id="Date_Input" type="text" placeholder="Enter your date" />
+    <button type="submit" id="Submit_Btn">Submit</button>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Family</th>
+          <th>Created_At</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="User_Data"></tbody>
+    </table>
+  </body>
+  <script>
+    let users = [
+      {
+        user_id: "583c3ac3f38e84297c002546",
+        email: "test@test.com",
+        name: "test@test.com",
+        given_name: "Hello",
+        family_name: "Test",
+        nickname: "test",
+        last_ip: "94.121.163.63",
+        logins_count: 15,
+        created_at: "2016-11-28T14:10:11.338Z",
+        updated_at: "2016-12-02T01:17:29.310Z",
+        last_login: "2016-12-02T01:17:29.310Z",
+        email_verified: true,
+      },
+      {
+        user_id: "583c5484cb79a5fe593425a9",
+        email: "test1@test.com",
+        name: "test1@test.com",
+        given_name: "Hello1",
+        family_name: "Test1",
+        nickname: "test1",
+        last_ip: "94.121.168.53",
+        logins_count: 1,
+        created_at: "2016-11-28T16:00:04.209Z",
+        updated_at: "2016-11-28T16:00:47.203Z",
+        last_login: "2016-11-28T16:00:47.203Z",
+        email_verified: true,
+      },
+      {
+        user_id: "583c57672c7686377d2f66c9",
+        email: "aaa@aaa.com",
+        name: "aaa@aaa.com",
+        given_name: "John",
+        family_name: "Dough",
+        nickname: "aaa",
+        last_ip: "94.121.168.53",
+        logins_count: 2,
+        created_at: "2016-11-28T16:12:23.777Z",
+        updated_at: "2016-11-28T16:12:52.353Z",
+        last_login: "2016-11-28T16:12:52.353Z",
+        email_verified: true,
+      },
+      {
+        user_id: "5840b954da0529cd293d76fe",
+        email: "a@a.com",
+        name: "a@a.com",
+        given_name: "Jane",
+        family_name: "Dough",
+        nickname: "a",
+        last_ip: "94.121.163.63",
+        logins_count: 3,
+        created_at: "2016-12-01T23:59:16.473Z",
+        updated_at: "2016-12-01T23:59:53.474Z",
+        last_login: "2016-12-01T23:59:53.474Z",
+        email_verified: true,
+      },
+      {
+        user_id: "584a9d13e808bcf75f05f580",
+        email: "test9999@test.com",
+        given_name: "Dummy",
+        family_name: "User",
+        created_at: "2016-12-09T12:01:23.787Z",
+        updated_at: "2016-12-09T12:01:23.787Z",
+        email_verified: false,
+      },
+    ];
+    console.log("====================================");
+    console.log(users);
+    console.log("====================================");
 
+    const userData = document.getElementById("User_Data");
+    const submitBtn = document.getElementById("Submit_Btn");
+    const inputName = document.getElementById("Name_Input");
+    const inputEmail = document.getElementById("Email_Input");
+    const inputFamily = document.getElementById("Family_Input");
+    const inputDate = document.getElementById("Date_Input");
+    let userId = null;
 
-</tbody>
-   </table>
-</body>
-<script>
-    const users = [
-  {
-    "user_id": "583c3ac3f38e84297c002546",
-    "email": "test@test.com",
-    "name": "test@test.com",
-    "given_name": "Hello",
-    "family_name": "Test",
-    "nickname": "test",
-    "last_ip": "94.121.163.63",
-    "logins_count": 15,
-    "created_at": "2016-11-28T14:10:11.338Z",
-    "updated_at": "2016-12-02T01:17:29.310Z",
-    "last_login": "2016-12-02T01:17:29.310Z",
-    "email_verified": true
-  },
-  {
-    "user_id": "583c5484cb79a5fe593425a9",
-    "email": "test1@test.com",
-    "name": "test1@test.com",
-    "given_name": "Hello1",
-    "family_name": "Test1",
-    "nickname": "test1",
-    "last_ip": "94.121.168.53",
-    "logins_count": 1,
-    "created_at": "2016-11-28T16:00:04.209Z",
-    "updated_at": "2016-11-28T16:00:47.203Z",
-    "last_login": "2016-11-28T16:00:47.203Z",
-    "email_verified": true
-  },
-  {
-    "user_id": "583c57672c7686377d2f66c9",
-    "email": "aaa@aaa.com",
-    "name": "aaa@aaa.com",
-    "given_name": "John",
-    "family_name": "Dough",
-    "nickname": "aaa",
-    "last_ip": "94.121.168.53",
-    "logins_count": 2,
-    "created_at": "2016-11-28T16:12:23.777Z",
-    "updated_at": "2016-11-28T16:12:52.353Z",
-    "last_login": "2016-11-28T16:12:52.353Z",
-    "email_verified": true
-  },
-  {
-    "user_id": "5840b954da0529cd293d76fe",
-    "email": "a@a.com",
-    "name": "a@a.com",
-    "given_name": "Jane",
-    "family_name": "Dough",
-    "nickname": "a",
-    "last_ip": "94.121.163.63",
-    "logins_count": 3,
-    "created_at": "2016-12-01T23:59:16.473Z",
-    "updated_at": "2016-12-01T23:59:53.474Z",
-    "last_login": "2016-12-01T23:59:53.474Z",
-    "email_verified": true
-  },
-  {
-    "user_id": "584a9d13e808bcf75f05f580",
-    "email": "test9999@test.com",
-    "given_name": "Dummy",
-    "family_name": "User",
-    "created_at": "2016-12-09T12:01:23.787Z",
-    "updated_at": "2016-12-09T12:01:23.787Z",
-    "email_verified": false
-  }
-]
-console.log('====================================');
-console.log(users);
-console.log('====================================');
+    submitBtn.addEventListener("click", () => updateTableData());
 
+    function updateTableData() {
+      const newName = inputName.value;
+      const newEmail = inputEmail.value;
+      const newFamily = inputFamily.value;
+      const newDate = inputDate.value;
 
-//const userData = document.querySelector('#user_data');
-//const row = document.createElement('tr');
+      const user = users.map((user) => {
+        if (user.user_id === userId) {
+          return {
+            name: newName,
+            emil: newEmail,
+            family_name: newFamily,
+            created_at: newDate,
+          };
+          // user.name = newName;
+          // user.email = newEmail;
+          // user.family_name = newFamily;
+          // user.created_at = newDate;
+        }
+        return user;
+      });
 
-/*
-users.forEach( (user)=> {
+      showUserData();
 
+      inputName.value = "";
+      inputEmail.value = "";
+      inputFamily.value = "";
+      inputDate.value = "";
+    }
 
+    function editTableRow(id) {
+      userId = id;
+      const user = users.find((user) => user.user_id === userId);
+      if (user) {
+        inputName.value = user.name;
+        inputEmail.value = user.email;
+        inputFamily.value = user.family_name;
+        inputDate.value = new Date(user.created_at).toLocaleDateString("en-US");
+      }
+    }
 
-const userEmail = document.createElement('td');
-userEmail.textContent = user.email;
-row.appendChild(userEmail);
+    function deleteTableRow(userId) {
+      users = users.filter((user) => user.user_id !== userId);
 
-const fName = document.createElement('td');
-fName.textContent = user.family_name;
-row.appendChild(fName);
+      showUserData();
+    }
 
-const createValue = document.createElement('td');
-createValue.textContent = user.created_at;
-row.appendChild(createValue);
-   i = document.createElement('i'); // To Do: create td first then put icons 
-i.classList.add('fas' , 'fa-edit');
+    function showUserData() {
+      userData.innerHTML = "";
+      users.forEach((user) => {
+        const row = document.createElement("tr");
+        const userName = document.createElement("td");
+        userName.textContent = user.name;
+        row.appendChild(userName);
 
-const editIcons = document.createElement('td');
-editIcons.appendChild(i);
+        const userEmail = document.createElement("td");
+        userEmail.textContent = user.email;
+        row.appendChild(userEmail);
 
-row.appendChild(editIcons);
+        const familyName = document.createElement("td");
+        familyName.textContent = user.family_name;
+        row.appendChild(familyName);
 
+        const createdAt = document.createElement("td");
+        createdAt.textContent = new Date(user.created_at).toLocaleDateString(
+          "eg-US"
+        );
+        row.appendChild(createdAt);
 
-const deleteIcon = document.createElement('i');
-deleteIcon.classList.add('fa-solid' , 'fa-trash');
-row.appendChild(deleteIcon);
+        const editBtn = document.createElement("td");
+        const editIcon = document.createElement("i");
+        editIcon.classList.add("fas", "fa-edit");
+        editBtn.appendChild(editIcon);
+        row.appendChild(editBtn);
 
-//userData.appendChild(row);
+        editIcon.addEventListener("click", () => editTableRow(user.user_id));
 
-editIcons.addEventListener('click', function() {
+        const deleteBtn = document.createElement("td");
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-trash");
+        deleteBtn.appendChild(deleteIcon);
+        row.appendChild(deleteBtn);
 
+        deleteIcon.addEventListener("click", () =>
+          deleteTableRow(user.user_id)
+        );
 
-  userName.textContent = prompt('Enter name');
-  
+        userData.appendChild(row);
+      });
+    }
 
-});
-
-
-deleteIcon.addEventListener('click', function () {
- 
- userName.remove();
- userEmail.remove();
- fName.remove();
- createValue.remove();
- deleteIcon.remove();
- editIcons.remove();
- 
-});
-
-}); */
-
-const nameValue = document.getElementById('Name_value');
-
-users.map( (user)=> {
-  const row = document.createElement('tr');
-  const userName = document.createElement('td');
-  userName.textContent = user.name;
-  row.appendChild(userName);
-  
-  const editIcon = document.createElement('td');
-  i = document.createElement('i'); // To Do: create td first then put icons   
-  i.classList.add('fas' , 'fa-edit');
-  editIcon.appendChild(i);
-  row.appendChild(editIcon);
-  
-  editIcon.addEventListener('click', function() {
-    userName.textContent = prompt('Enter name');
-    
-  });
-  
-  const deleteBtn = document.createElement('td');
-  deleteIcon = document.createElement('i');
-  deleteIcon.classList.add('fa-solid' , 'fa-trash');
-  deleteBtn.appendChild(deleteIcon);
-  row.appendChild(deleteBtn);
-  nameValue.appendChild(row);
-  
-  deleteBtn.addEventListener('click', function() {
-    
-    userName.textContent = "";
-    editIcon.textContent = "";
-    deleteBtn.textContent = "";
-  
-});
-});
-
-users.forEach( (user) => {
-  const row = document.createElement('tr');
-  const userEmail = document.createElement('td');
-  userEmail.textContent = user.email;
-  row.appendChild(userEmail);
-  nameValue.appendChild(row);
-
-});
-
-
-console.log(nameValue); 
-
-</script>
+    showUserData();
+  </script>
 </html>
-
