@@ -1,132 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-</head>
-<style>
-  input {
-    padding: 10px;
-   
-  }
-
-  table, tr, th {
-   padding: 10px;
-  }
-  button {
-    padding: 10px;
-  }
-  tbody, td {
-    padding: 10px;
-  }
-
-  
-
-</style>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+  </head>
+  <style>
+    th,
+    td {
+      padding: 25px;
+      font-size: 20px;
+    }
+    th {
+      color: teal;
+    }
+    #Input {
+      width: 300px;
+      padding: 10px;
+      border: 1px solid black;
+      border-radius: 10px;
+      margin-left: 25px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    #Btn {
+      width: 60px;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid black;
+      background-color: teal;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    h2 {
+      margin-left: 95px;
+    }
+  </style>
+  <body>
     <h2>To-Do List App</h2>
-   
-    <input id="Input" type="text" placeholder="Write here...">
-  
+
+    <input id="Input" type="text" placeholder="Write here..." />
+
     <button type="submit" id="Btn">Add</button>
 
-    
-       <table>
-    <thead>
-      <tr>
-        <th>Data</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-</thead>
-<tbody id="Table_data">
+    <table>
+      <thead>
+        <tr>
+          <th>Completed</th>
+          <th>Name</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody id="Table_data"></tbody>
+    </table>
+  </body>
+  <script>
+    const input = document.getElementById("Input");
+    const addBtn = document.getElementById("Btn");
+    const tableData = document.getElementById("Table_data");
 
-</tbody>
-   </table>
-</body>
-<script>
+    let users = [];
+    let userId = null;
 
-const input = document.getElementById('Input');
-const addBtn = document.getElementById('Btn');
-const tableData = document.getElementById('Table_data');
+    function generateId() {
+      return Date.now();
+    }
 
-let users = [];
-let userId = null;
+    addBtn.addEventListener("click", () => updateUserData());
 
-function generateId() {
-  return Date.now();
-  
-}
+    function updateUserData() {
+      const name = input.value.trim();
 
-addBtn.addEventListener('click', () => updateData());
-
-function updateData () {
-        const name = input.value.trim();
-        if(!name) return;
-        if (userId === null) {
-          users.push({ id: generateId(), name });
-        } else {
-          const user = users.find((user) => user.id === userId);
-          if (user) user.name = name;
-        }
-
-        input.value = "";
-        showUsers();
+      if (!name) return;
+      if (userId === null) {
+        users.push({ id: generateId(), name });
+       
+        console.log(name);
+      } else {
+        const user = users.find((user) => user.id === userId);
+        if (user) user.name = name;
+        console.log(name);
       }
 
-      function showUsers() {
-          tableData.innerHTML = "";
+      input.value = "";
+     
+      showUserData();
+    }
 
-          users.forEach((user) => {
+    function showUserData() {
+      tableData.innerHTML = "";
 
-          const row = document.createElement("tr");
+      users.forEach((user) => {
+        const row = document.createElement("tr");
 
-          const span = document.createElement('td');
-          span.textContent = user.name;
-          
-          const editIcon = document.createElement('i');
-          editIcon.classList.add("fas", "fa-edit");
+        const span = document.createElement("td");
+        span.textContent = user.name;
 
-          const deleteIcon = document.createElement('i');
-          deleteIcon.classList.add("fa-solid", "fa-trash");
-          const checkbox = document.createElement('input');
-          checkbox.type = "checkbox";
-          
-          checkbox.addEventListener('click', function(){
-          checkbox.toggle= "completed";
+        const editTd = document.createElement("td");
+        const editIcon = document.createElement("i");
+        editIcon.classList.add("fas", "fa-edit");
+        editTd.appendChild(editIcon);
 
+        const delTd = document.createElement("td");
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid", "fa-trash");
+        delTd.appendChild(deleteIcon);
 
-          });
+        const completeTd = document.createElement("td");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        completeTd.appendChild(checkbox);
 
-          row.appendChild(checkbox);
-          row.appendChild(span);
-          row.appendChild(editIcon);
-          row.appendChild(deleteIcon);
-
-          tableData.appendChild(row);
-          
-           
-
-          editIcon.addEventListener('click', () => editUser(user.id));
-          deleteIcon.addEventListener('click', () => deleteUser(user.id));
-          
+        checkbox.addEventListener("click", function () {
+          if (checkbox.checked) {
+            span.style.color = "red";
+            console.log("Checked");
+          } else {
+            span.style.color = "";
+            console.log("Unchecked");
+          }
         });
-        
+
+        row.appendChild(completeTd);
+        row.appendChild(span);
+        row.appendChild(editTd);
+        row.appendChild(delTd);
+
+        tableData.appendChild(row);
+        console.log(row);
+
+        editIcon.addEventListener("click", () => editTableData(user.id));
+        deleteIcon.addEventListener("click", () => deleteTableData(user.id));
+      });
+      setUser();
+    }
+   
+    function editTableData(id) {
+      userId = id;
+      const user = users.find((user) => user.id === id);
+      if (user) {
+        input.value = user.name;
       }
+      console.log("User edit");
+    }
+    function deleteTableData(userId) {
+      users = users.filter((user) => user.id !== userId);
+      showUserData();
+      console.log("User Deleted");
+    }
 
 
-      function editUser(id) {
-        userId = id;
-        const user = users.find((user) => user.id === id);
-        if (user) {
-          input.value = user.name; 
-        }
+
+      function setUser() {
+      const text = JSON.stringify(users);
+      localStorage.setItem( " key ", text );
+     
+      if(text) {
+       const saved = localStorage.getItem(JSON.parse(text));
+       console.log("saved", saved);
       }
-      function deleteUser(userId) {
-        users = users.filter((user) => user.id !== userId);
-        showUsers();
-      }
-    </script>
+      
+    } 
+   
+
+
+
+
+
+  </script>
 </html>
